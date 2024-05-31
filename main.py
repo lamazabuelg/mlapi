@@ -12,8 +12,11 @@ model = pickle.load(open(file_name, "rb"))
 
 def get_features_dict(model):
     feature_names = model.get_booster().feature_names
-    feature_types = [Union[float, int] for _ in feature_names]
-    return dict(zip(feature_names, feature_types))
+    features_dict = {}
+    for feature_name in feature_names:
+        # Asignar anotación de tipo Union[float, int] a cada característica
+        features_dict[feature_name] : Union[float, int] 
+    return features_dict
 
 
 def create_input_features_class(model):
