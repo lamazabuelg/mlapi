@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from typing import List
 import pickle # importamos la librería para cargar el modelo
 import xgboost # ibid
+import numpy as np
 
 class ApiInput(BaseModel):
     Novedad_M: List[float]
@@ -301,6 +302,11 @@ model = pickle.load(open(file_name, "rb"))
 
 @app.post("/predict_vehicle_value") # creamos api que permita requests de tipo post.
 async def predict_vehicle_value(data: ApiInput) -> ApiOutput:
-    predictions = model.predict(data).flatten().tolist() # generamos la predicción
+    # Convierte los datos de ApiInput a un array NumPy
+    data_array = np.array([[getattr(data, feature) for feature in data.__fields__]])
+
+    # Realiza la predicción usando el array NumPy
+    predictions = model.predict(data_array).flatten().tolist() 
+    
     preds = ApiOutput(Precio2018=predictions) # efloatucturamos la salida del API.
     return preds # retornamos los resultados
