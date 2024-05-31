@@ -1,6 +1,6 @@
 import pickle
 from pydoc import locate
-from typing import List
+from typing import List, Union
 
 import numpy as np
 from fastapi import FastAPI
