@@ -10,13 +10,9 @@ file_name = "xgb_regressor.pkl"
 model = pickle.load(open(file_name, "rb"))
 
 
-def create_type_instance(type_name: str):
-    return locate(type_name).__call__()
-
-
 def get_features_dict(model):
     feature_names = model.get_booster().feature_names
-    feature_types = list(map(create_type_instance, model.get_booster().feature_types))
+    feature_types = [Union[float, int] for _ in feature_names]
     return dict(zip(feature_names, feature_types))
 
 
