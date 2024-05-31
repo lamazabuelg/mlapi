@@ -2,6 +2,7 @@ from fastapi import FastAPI # importamos el API
 from pydantic import BaseModel
 from typing import List
 import pickle # importamos la librería para cargar el modelo
+import xgboost # ibid
 
 class ApiInput(BaseModel):
     Novedad_M: List[float]
