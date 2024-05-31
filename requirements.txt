@@ -1,3 +1,4 @@
 scikit-learn
 fastapi
 uvicorn
+xgboost==1.7.4
